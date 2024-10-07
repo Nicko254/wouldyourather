@@ -101,7 +101,7 @@ const questions = [
 { a: "Star in Catriona's homemade horror movie", b: "Be the subject of Coby's stand-up comedy routine" },
 { a: "Live in a world with no privacy", b: "Live in a world with no internet" },
 { a: "Have Eve critique your fashion choices for a month", b: "Let Paula redecorate your entire house" },
-{ a: "Be Bella's taste tester for experimental recipes", b: "Be Pina's model for avant-garde hairstyles" },
+{ a: "Swim the harobur crossing", b: "Be Pina's model for avant-garde hairstyles" },
 { a: "Have a fight with a kangaroo", b: "Have a fight with a badger" },
 { a: "Always say exactly what you're thinking", b: "Never be able to speak again" },
 { a: "Be in Mailes fire dancing show", b: "Submerge yourself in an ice bucket for 2 minutes" },
