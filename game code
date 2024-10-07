@@ -96,7 +96,7 @@ const questions = [
 { a: "Be Paula's assistant for a day", b: "Be Bella's personal chef for a week" },
 { a: "Join Pina's extreme sports club", b: "Attend Marissa's meditation classes" },
 { a: "Have your thoughts broadcasted to everyone for a day", b: "Have everyone's thoughts broadcasted to you for a day" },
-{ a: "Be Konstantin's dance partner", b: "Be Maile's gym buddy" },
+{ a: "Walk Yosimite with Paula", b: "Go on a Bali surf trip with Nick" },
 { a: "Go on a road trip with Nick", b: "Go backpacking through Europe with Keren" },
 { a: "Star in Catriona's homemade horror movie", b: "Be the subject of Coby's stand-up comedy routine" },
 { a: "Live in a world with no privacy", b: "Live in a world with no internet" },
