@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Would You Rather? Team Edition</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;
+background-color: #f0f0f0;
+}
+.container {
+text-align: center;
+background-color: white;
+padding: 2rem;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+max-width: 80%;
+width: 90%;
+}
+h1 {
+color: #333;
+margin-bottom: 1rem;
+font-size: 3rem;
+font-weight: 900;
+}
+.options {
+display: flex;
+justify-content: space-around;
+margin-bottom: 2rem;
+}
+.option, #startButton {
+color: #000;
+border: none;
+padding: 1.5rem 2rem;
+font-size: 2rem;
+cursor: pointer;
+border-radius: 10px;
+transition: opacity 0.3s ease;
+width: 45%;
+font-weight: bold;
+text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.option:hover, #startButton:hover {
+opacity: 0.8;
+}
+#optionA {
+background-color: #90EE90; /* Light Green */
+}
+#optionB {
+background-color: #FFA07A; /* Light Salmon */
+}
+#startButton {
+background-color: #87CEFA; /* Light Sky Blue */
+margin: 2rem auto;
+display: block;
+width: 200px;
+}
+.timer {
+font-size: 3rem;
+color: #666;
+font-weight: bold;
+}
+.progress {
+margin-top: 1rem;
+font-size: 1.5rem;
+color: #666;
+}
+#gameContent {
+display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Would You Rather?</h1>
+<button id="startButton">Start Game</button>
+<div id="gameContent">
+<div class="options">
+<button id="optionA" class="option"></button>
+<button id="optionB" class="option"></button>
+</div>
+<div id="timer" class="timer">30</div>
+<div id="progress" class="progress"></div>
+</div>
+</div>
+
+<script>
+const questions = [
+{ a: "Go on a karaoke night with Coby", b: "Have a silent retreat with Eve" },
+{ a: "Be Paula's assistant for a day", b: "Be Bella's personal chef for a week" },
+{ a: "Join Pina's extreme sports club", b: "Attend Marissa's meditation classes" },
+{ a: "Have your thoughts broadcasted to everyone for a day", b: "Have everyone's thoughts broadcasted to you for a day" },
+{ a: "Be Konstantin's dance partner", b: "Be Maile's gym buddy" },
+{ a: "Go on a road trip with Nick", b: "Go backpacking through Europe with Keren" },
+{ a: "Star in Catriona's homemade horror movie", b: "Be the subject of Coby's stand-up comedy routine" },
+{ a: "Live in a world with no privacy", b: "Live in a world with no internet" },
+{ a: "Have Eve critique your fashion choices for a month", b: "Let Paula redecorate your entire house" },
+{ a: "Be Bella's taste tester for experimental recipes", b: "Be Pina's model for avant-garde hairstyles" },
+{ a: "Participate in Marissa's flash mob", b: "Be in Konstantin's amateur theater production" },
+{ a: "Always say exactly what you're thinking", b: "Never be able to speak again" },
+{ a: "Be in Mailes fire dancing show", b: "Submerge yourself in an ice bucket for 2 minutes" },
+{ a: "Join Keren's early morning jogging group", b: "Be part of Catriona's late-night book club" },
+{ a: "Have Coby narrate your life for a day", b: "Have Eve translate everything you say into interpretive dance" },
+{ a: "Be famous for something terrible", b: "Never be recognized for anything good you do" },
+{ a: "Listen to the history of Russia and do shots of vodka with Konstantin", b: "Be Bella's partner in a cooking competition show" },
+{ a: "Drink a cup of tabassco sauce", b: "Start a band with Marissa" },
+{ a: "Be Konstantin's apprentice in magic tricks", b: "Be Maile's student in a foreign language crash course" },
+{ a: "Have your browser history made public", b: "Have your text messages made public" },
+{ a: "Swap wardrobes with Nick for a month", b: "Switch jobs with Keren for a week" },
+{ a: "Always have a mullet haircut", b: "Always wear a top knot hair style" },
+{ a: "Have Eve plan your birthday party", b: "Have Paula organize your wedding" },
+{ a: "Be able to read minds", b: "Be able to see the future" },
+{ a: "Be Bella's food critic for a month", b: "Be Pina's personal trainer for a week" },
+{ a: "Join Marissa's improv comedy group", b: "Be in Konstantin's documentary about office life" },
+{ a: "Attend a ninja training class with Eve", b: "Attend Maile's Ted Talk on the future of space wormholes" },
+{ a: "Live without music forever", b: "Live without movies/TV forever" },
+{ a: "Be Keren's assistant in a knife throwing show", b: "Star in Catriona's live stream musical about the benefits of co-working spaces" },
+{ a: "Have a rap battle with Coby", b: "Have a debate competition with Eve" },
+{ a: "Be Paula's partner in a three-legged race", b: "Be Bella's sous-chef for a fancy dinner party" },
+{ a: "Always be 10 minutes late", b: "Always be 20 minutes early" },
+{ a: "Eat raw fish eyeballs", b: "Drink a cup of 2 month old milk" },
+{ a: "Know the date of your death", b: "Know the cause of your death" },
+{ a: "Have dinner with your hero", b: "Become your hero for a day" },
+{ a: "Be fluent in all languages", b: "Be a master of every musical instrument" },
+{ a: "End hunger", b: "End all crime" },
+{ a: "Have unlimited money", b: "Have unlimited time" },
+{ a: "Be loved by all but love no one", b: "Be loved by no one but love everyone" },
+{ a: "Live one life that lasts 1,000 years", b: "Live 10 lives that last 100 years each" }
+];
+
+let currentQuestion = 0;
+let timer = 30;
+let interval;
+
+const startButtonEl = document.getElementById('startButton');
+const gameContentEl = document.getElementById('gameContent');
+const optionAEl = document.getElementById('optionA');
+const optionBEl = document.getElementById('optionB');
+const timerEl = document.getElementById('timer');
+const progressEl = document.getElementById('progress');
+
+function startGame() {
+startButtonEl.style.display = 'none';
+gameContentEl.style.display = 'block';
+shuffleQuestions();
+displayQuestion();
+resetTimer();
+}
+
+function displayQuestion() {
+const q = questions[currentQuestion];
+optionAEl.textContent = q.a;
+optionBEl.textContent = q.b;
+updateProgress();
+}
+
+function nextQuestion() {
+currentQuestion = (currentQuestion + 1) % questions.length;
+displayQuestion();
+resetTimer();
+}
+
+function resetTimer() {
+clearInterval(interval);
+timer = 30;
+timerEl.textContent = timer;
+interval = setInterval(() => {
+timer--;
+timerEl.textContent = timer;
+if (timer === 0) {
+nextQuestion();
+}
+}, 1000);
+}
+
+function updateProgress() {
+progressEl.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+}
+
+function shuffleQuestions() {
+for (let i = questions.length - 1; i > 0; i--) {
+const j = Math.floor(Math.random() * (i + 1));
+[questions[i], questions[j]] = [questions[j], questions[i]];
+}
+}
+
+startButtonEl.addEventListener('click', startGame);
+optionAEl.addEventListener('click', nextQuestion);
+optionBEl.addEventListener('click', nextQuestion);
+</script>
+</body>
+</html>
