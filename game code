@@ -108,7 +108,7 @@ const questions = [
 { a: "Join Keren's early morning jogging group", b: "Be part of Catriona's late-night book club" },
 { a: "Have Coby narrate your life for a day", b: "Have Eve translate everything you say into interpretive dance" },
 { a: "Be famous for something terrible", b: "Never be recognized for anything good you do" },
-{ a: "Listen to the history of Russia and do shots of vodka with Konstantin", b: "Get breakdancing lessons with Bella" },
+{ a: "Listen to the history of Russia and do shots of vodka with Konstantin", b: "Get breakdancing lessons from Bella" },
 { a: "Drink a cup of tabassco sauce", b: "Start a band with Marissa" },
 { a: "Be Konstantin's apprentice in magic tricks", b: "Be Maile's student in a foreign language crash course" },
 { a: "Have your browser history made public", b: "Have your text messages made public" },
